@@ -33,7 +33,7 @@ class TodoController {
         Output.writeln('You choose 4');
         break;
       case 5:
-        Output.writeln('You choose 5');
+        _clearTask();
         break;
       case 6:
         Output.writeln('Good bye!!');
@@ -52,8 +52,8 @@ class TodoController {
       return;
     }
 
-    for (var index = 0; index < tasks.length; index++) {
-      Output.writeln('${index + 1}. ${tasks[index]}');
+    for (var i = 0; i < tasks.length; i++) {
+      Output.writeln('${i + 1}. ${tasks[i]}');
     }
   }
 
@@ -78,9 +78,14 @@ class TodoController {
     _showTasks(tasks);
     final taskNumber = Input.readInt('Enter task number to delete: ');
     if (_taskService.deleteTask(taskNumber)) {
-      Output.writeln('Task deleted.');
+      Output.writeln('Success: Task deleted.');
     } else {
       Output.writeln('Invalid task number.');
     }
+  }
+
+  void _clearTask() {
+    _taskService.clearTask();
+    Output.writeln("Success: all task deleted");
   }
 }
