@@ -1,26 +1,39 @@
-import 'task.dart';
+import 'task_model.dart';
+
 class TaskService {
-  List<String> viewTasks() => List.unmodifiable(tasks);
+  final List<Task> _tasks = [];
+
+  List<Task> viewTasks() => List.unmodifiable(_tasks);
 
   void addTask(String task) {
     final trimmedTask = task.trim();
     if (trimmedTask.isEmpty) {
       return;
     }
-    tasks.add(trimmedTask);
+    _tasks.add(Task(trimmedTask));
   }
 
   bool deleteTask(int id) {
     final index = id - 1;
-    if (index < 0 || index >= tasks.length) {
+    if (index < 0 || index >= _tasks.length) {
       return false;
     }
 
-    tasks.removeAt(index);
+    _tasks.removeAt(index);
     return true;
   }
 
-  void clearTask() {
-    tasks.clear();
+  bool toggleTaskStatus(int taskNumber) {
+    final index = taskNumber - 1;
+    if (index < 0 || index >= _tasks.length) {
+      return false;
+    }
+
+    _tasks[index].toggleStatus();
+    return true;
+  }
+
+  void clearTasks() {
+    _tasks.clear();
   }
 }

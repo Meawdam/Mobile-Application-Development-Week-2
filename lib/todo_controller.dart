@@ -1,4 +1,5 @@
 import 'menu.dart';
+import 'task_model.dart';
 import 'task_service.dart';
 import 'utils/input.dart';
 import 'utils/output.dart';
@@ -30,7 +31,7 @@ class TodoController {
         _deleteTask();
         break;
       case 4:
-        Output.writeln('You choose 4');
+        _toggleTaskStatus();
         break;
       case 5:
         _clearTask();
@@ -45,7 +46,7 @@ class TodoController {
     return true;
   }
 
-  void _showTasks(List<String> tasks) {
+  void _showTasks(List<Task> tasks) {
     Output.writeln('------- All Tasks -------');
     if (tasks.isEmpty) {
       Output.writeln('No existing tasks.');
@@ -53,7 +54,7 @@ class TodoController {
     }
 
     for (var i = 0; i < tasks.length; i++) {
-      Output.writeln('${i + 1}. ${tasks[i]}');
+      Output.writeln('${i + 1}.${tasks[i]}');
     }
   }
 
@@ -85,7 +86,23 @@ class TodoController {
   }
 
   void _clearTask() {
-    _taskService.clearTask();
+    _taskService.clearTasks();
     Output.writeln("Success: all task deleted");
+  }
+
+  void _toggleTaskStatus() {
+    final tasks = _taskService.viewTasks();
+    if (tasks.isEmpty) {
+      Output.writeln('No existing tasks to update.');
+      return;
+    }
+
+    _showTasks(tasks);
+    final taskNumber = Input.readInt('Enter task number to toggle: ');
+    if (_taskService.toggleTaskStatus(taskNumber)) {
+      Output.writeln('Task status updated.');
+    } else {
+      Output.writeln('Invalid task number.');
+    }
   }
 }
