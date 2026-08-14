@@ -1,9 +1,12 @@
 import 'menu.dart';
+import 'task_service.dart';
 import 'utils/input.dart';
 import 'utils/output.dart';
 
 /// Coordinates the command-line Todo application.
 class TodoApp {
+  final TaskService _taskService = TaskService();
+
   void run() {
     while (true) {
       menu();
@@ -18,7 +21,7 @@ class TodoApp {
   bool _handleOption(int option) {
     switch (option) {
       case 1:
-        Output.writeln('You choose 1');
+        _taskService.viewTasks();
         break;
       case 2:
         Output.writeln('You choose 2');
