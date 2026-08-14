@@ -13,4 +13,17 @@ class TaskService {
     }
     tasks.add(trimmedTask);
   }
+
+  /// Deletes the task shown at the one-based [taskNumber].
+  ///
+  /// Returns `false` if the task number does not exist.
+  bool deleteTask(int id) {
+    final index = id - 1;
+    if (index < 0 || index >= tasks.length) {
+      return false;
+    }
+
+    tasks.removeAt(index);
+    return true;
+  }
 }

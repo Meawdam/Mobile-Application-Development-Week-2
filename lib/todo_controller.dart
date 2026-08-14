@@ -27,7 +27,7 @@ class TodoController {
         _addTask();
         break;
       case 3:
-        Output.writeln('You choose 3');
+        _deleteTask();
         break;
       case 4:
         Output.writeln('You choose 4');
@@ -68,5 +68,19 @@ class TodoController {
     Output.writeln('Task added.');
   }
 
-  
+  void _deleteTask() {
+    final tasks = _taskService.viewTasks();
+    if (tasks.isEmpty) {
+      Output.writeln('No existing tasks to delete.');
+      return;
+    }
+
+    _showTasks(tasks);
+    final taskNumber = Input.readInt('Enter task number to delete: ');
+    if (_taskService.deleteTask(taskNumber)) {
+      Output.writeln('Task deleted.');
+    } else {
+      Output.writeln('Invalid task number.');
+    }
+  }
 }
