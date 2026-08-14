@@ -11,7 +11,7 @@ class TodoController {
   void run() {
     while (true) {
       showTodoMenu();
-      final option = Input.readInt('Select an option (1-6): ');
+      final option = Input.readInt('Select an option (1-7): ');
 
       if (!_handleOption(option)) {
         return;
@@ -37,10 +37,13 @@ class TodoController {
         _clearTasks();
         break;
       case 6:
+        _editTask();
+        break;
+      case 7:
         Output.writeln('Goodbye!');
         return false;
       default:
-        Output.writeln('Invalid option. Please choose a number from 1 to 6.');
+        Output.writeln('Invalid option. Please choose a number from 1 to 7.');
     }
 
     return true;
@@ -104,5 +107,27 @@ class TodoController {
   void _clearTasks() {
     _taskService.clearTasks();
     Output.writeln('All tasks deleted.');
+  }
+
+  void _editTask() {
+    final tasks = _taskService.viewTasks();
+    if (tasks.isEmpty) {
+      Output.writeln('No existing tasks to edit.');
+      return;
+    }
+
+    _showTasks(tasks);
+    final taskNumber = Input.readInt('Enter task number to edit: ');
+    final title = Input.readString('Enter new task title: ');
+    if (title.trim().isEmpty) {
+      Output.writeln('Task title cannot be empty.');
+      return;
+    }
+
+    if (_taskService.editTask(taskNumber, title)) {
+      Output.writeln('Task edited.');
+    } else {
+      Output.writeln('Invalid task number.');
+    }
   }
 }

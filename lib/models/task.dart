@@ -1,7 +1,7 @@
 class Task {
   Task(this.title);
 
-  final String title;
+  String title;
   bool complete = false;
 
   void toggleStatus() {

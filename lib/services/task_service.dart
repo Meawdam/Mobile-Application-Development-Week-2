@@ -34,4 +34,15 @@ class TaskService {
   }
 
   void clearTasks() => _tasks.clear();
+
+  bool editTask(int taskNumber, String title) {
+    final index = taskNumber - 1;
+    final trimmedTitle = title.trim();
+    if (index < 0 || index >= _tasks.length || trimmedTitle.isEmpty) {
+      return false;
+    }
+
+    _tasks[index].title = trimmedTitle;
+    return true;
+  }
 }
