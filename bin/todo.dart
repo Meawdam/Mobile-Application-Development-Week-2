@@ -1,5 +1,5 @@
-import 'package:todo/todo.dart';
+import 'package:todo/controllers/todo_controller.dart';
 
 void main(List<String> arguments) {
-  TodoApp().run();
+  TodoController().run();
 }

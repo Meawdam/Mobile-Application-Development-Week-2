@@ -1,6 +1,7 @@
-import 'utils/output.dart';
+import '../utils/output.dart';
 
-void menu() {
+/// Displays the Todo application's available actions.
+void showTodoMenu() {
   Output.writeln('\n======= TODO app =======');
   Output.writeln('1. View Tasks');
   Output.writeln('2. Add Task');

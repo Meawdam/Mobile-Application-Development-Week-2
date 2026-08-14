@@ -1,8 +1,8 @@
-import 'menu.dart';
-import 'task_model.dart';
-import 'task_service.dart';
-import 'utils/input.dart';
-import 'utils/output.dart';
+import '../models/task.dart';
+import '../services/task_service.dart';
+import '../utils/input.dart';
+import '../utils/output.dart';
+import '../views/todo_menu.dart';
 
 /// Handles menu choices and coordinates the Todo command-line interface.
 class TodoController {
@@ -10,7 +10,7 @@ class TodoController {
 
   void run() {
     while (true) {
-      menu();
+      showTodoMenu();
       final option = Input.readInt('Select an option (1-6): ');
 
       if (!_handleOption(option)) {
@@ -34,10 +34,10 @@ class TodoController {
         _toggleTaskStatus();
         break;
       case 5:
-        _clearTask();
+        _clearTasks();
         break;
       case 6:
-        Output.writeln('Good bye!!');
+        Output.writeln('Goodbye!');
         return false;
       default:
         Output.writeln('Invalid option. Please choose a number from 1 to 6.');
@@ -53,19 +53,19 @@ class TodoController {
       return;
     }
 
-    for (var i = 0; i < tasks.length; i++) {
-      Output.writeln('${i + 1}.${tasks[i]}');
+    for (var index = 0; index < tasks.length; index++) {
+      Output.writeln('${index + 1}. ${tasks[index]}');
     }
   }
 
   void _addTask() {
-    final task = Input.readString('Enter task: ');
-    if (task.trim().isEmpty) {
+    final title = Input.readString('Enter task: ');
+    if (title.trim().isEmpty) {
       Output.writeln('Task cannot be empty.');
       return;
     }
 
-    _taskService.addTask(task);
+    _taskService.addTask(title);
     Output.writeln('Task added.');
   }
 
@@ -79,15 +79,10 @@ class TodoController {
     _showTasks(tasks);
     final taskNumber = Input.readInt('Enter task number to delete: ');
     if (_taskService.deleteTask(taskNumber)) {
-      Output.writeln('Success: Task deleted.');
+      Output.writeln('Task deleted.');
     } else {
       Output.writeln('Invalid task number.');
     }
-  }
-
-  void _clearTask() {
-    _taskService.clearTasks();
-    Output.writeln("Success: all task deleted");
   }
 
   void _toggleTaskStatus() {
@@ -104,5 +99,10 @@ class TodoController {
     } else {
       Output.writeln('Invalid task number.');
     }
+  }
+
+  void _clearTasks() {
+    _taskService.clearTasks();
+    Output.writeln('All tasks deleted.');
   }
 }

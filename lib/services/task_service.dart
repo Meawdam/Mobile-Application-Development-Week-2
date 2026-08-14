@@ -1,20 +1,20 @@
-import 'task_model.dart';
+import '../models/task.dart';
 
+/// Manages the Todo application's tasks.
 class TaskService {
   final List<Task> _tasks = [];
 
   List<Task> viewTasks() => List.unmodifiable(_tasks);
 
-  void addTask(String task) {
-    final trimmedTask = task.trim();
-    if (trimmedTask.isEmpty) {
-      return;
+  void addTask(String title) {
+    final trimmedTitle = title.trim();
+    if (trimmedTitle.isNotEmpty) {
+      _tasks.add(Task(trimmedTitle));
     }
-    _tasks.add(Task(trimmedTask));
   }
 
-  bool deleteTask(int id) {
-    final index = id - 1;
+  bool deleteTask(int taskNumber) {
+    final index = taskNumber - 1;
     if (index < 0 || index >= _tasks.length) {
       return false;
     }
@@ -33,7 +33,5 @@ class TaskService {
     return true;
   }
 
-  void clearTasks() {
-    _tasks.clear();
-  }
+  void clearTasks() => _tasks.clear();
 }
