@@ -1,5 +1,6 @@
 import 'task.dart';
 import 'utils/output.dart';
+import 'utils/input.dart';
 
 /// Provides operations for the current session's tasks.
 class TaskService {
@@ -11,8 +12,13 @@ class TaskService {
     }
 
     Output.writeln('\nYour tasks:');
-    for (var index = 0; index < tasks.length; index++) {
-      Output.writeln('${index + 1}. ${tasks[index]}');
+    for (var i = 0; i < tasks.length; i++) {
+      Output.writeln('${i + 1}. ${tasks[i]}');
     }
+  }
+
+  void addTask() {
+    final task = Input.readString("Enter task: ");
+    tasks.add(task);
   }
 }

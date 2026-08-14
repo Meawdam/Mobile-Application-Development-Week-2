@@ -24,7 +24,7 @@ class TodoApp {
         _taskService.viewTasks();
         break;
       case 2:
-        Output.writeln('You choose 2');
+        _taskService.addTask();
         break;
       case 3:
         Output.writeln('You choose 3');
@@ -36,7 +36,7 @@ class TodoApp {
         Output.writeln('You choose 5');
         break;
       case 6:
-        Output.writeln('You choose 6');
+        Output.writeln('Good bye!!');
         return false;
       default:
         Output.writeln('Invalid option. Please choose a number from 1 to 6.');
