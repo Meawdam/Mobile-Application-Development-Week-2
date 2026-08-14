@@ -45,4 +45,16 @@ class TaskService {
     _tasks[index].title = trimmedTitle;
     return true;
   }
+
+  /// Returns every task whose title contains [query], ignoring letter case.
+  List<Task> searchTasksByTitle(String query) {
+    final normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery.isEmpty) {
+      return [];
+    }
+
+    return _tasks
+        .where((task) => task.title.toLowerCase().contains(normalizedQuery))
+        .toList();
+  }
 }

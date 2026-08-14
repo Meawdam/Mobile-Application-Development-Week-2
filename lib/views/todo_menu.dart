@@ -9,6 +9,7 @@ void showTodoMenu() {
   Output.writeln('4. Toggle Task Status');
   Output.writeln('5. Clear All Tasks');
   Output.writeln('6. Edit Task');
-  Output.writeln('7. Exit');
+  Output.writeln('7. Search Tasks');
+  Output.writeln('8. Exit');
   Output.writeln('========================');
 }

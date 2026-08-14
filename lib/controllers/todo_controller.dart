@@ -11,7 +11,7 @@ class TodoController {
   void run() {
     while (true) {
       showTodoMenu();
-      final option = Input.readInt('Select an option (1-7): ');
+      final option = Input.readInt('Select an option (1-8): ');
 
       if (!_handleOption(option)) {
         return;
@@ -40,10 +40,13 @@ class TodoController {
         _editTask();
         break;
       case 7:
+        _searchTasks();
+        break;
+      case 8:
         Output.writeln('Goodbye!');
         return false;
       default:
-        Output.writeln('Invalid option. Please choose a number from 1 to 7.');
+        Output.writeln('Invalid option. Please choose a number from 1 to 8.');
     }
 
     return true;
@@ -107,6 +110,25 @@ class TodoController {
   void _clearTasks() {
     _taskService.clearTasks();
     Output.writeln('All tasks deleted.');
+  }
+
+  void _searchTasks() {
+    final query = Input.readString('Search task title: ');
+    if (query.trim().isEmpty) {
+      Output.writeln('Search title cannot be empty.');
+      return;
+    }
+
+    final results = _taskService.searchTasksByTitle(query);
+    if (results.isEmpty) {
+      Output.writeln('No matching tasks found.');
+      return;
+    }
+
+    Output.writeln('------- Search Results -------');
+    for (var index = 0; index < results.length; index++) {
+      Output.writeln('${index + 1}. ${results[index]}');
+    }
   }
 
   void _editTask() {
