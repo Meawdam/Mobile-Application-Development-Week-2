@@ -602,20 +602,3 @@ Complete the unit test file so that it tests all controller functions.
 ```text
 todo_test.dart
 ```
-
----
-
-# Submission Checklist
-
-* [ ] Exercise 1 completed
-* [ ] Exercise 2 completed
-* [ ] Exercise 3 completed
-* [ ] Exercise 4 completed
-* [ ] Exercise 5 completed
-* [ ] Exercise 6 completed
-* [ ] Exercise 7 completed
-* [ ] Exercise 8 completed
-* [ ] Assignment 1 completed
-* [ ] Assignment 2 completed
-* [ ] All unit tests completed
-* [ ] All tests run successfully
